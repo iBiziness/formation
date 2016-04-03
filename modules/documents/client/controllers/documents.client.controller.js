@@ -35,6 +35,9 @@
       if (vm.document._id) {
         vm.document.$update(successCallback, errorCallback);
       } else {
+
+        // by default document type is employment_form
+        vm.document.type = 'employment_form';
         vm.document.$save(successCallback, errorCallback);
       }
 

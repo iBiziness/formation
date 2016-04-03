@@ -33,7 +33,7 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Documents Create'
+          pageTitle: 'Submit a employement application'
         }
       })
       .state('documents.edit', {

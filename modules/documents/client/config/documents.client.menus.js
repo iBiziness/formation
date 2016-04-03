@@ -17,7 +17,7 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'documents', {
-      title: 'My Documents',
+      title: 'List Documents',
       state: 'documents.list'
     });
 
