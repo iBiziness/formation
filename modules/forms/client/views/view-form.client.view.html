@@ -1,0 +1,73 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.form.type"></h1>
+  </div>
+  <div class="pull-right" ng-show="vm.form.isCurrentUserOwner">
+    <a class="btn btn-primary" ui-sref="forms.edit({ formId: vm.form._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Submitted on
+      <span ng-bind="vm.form.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.form.user" ng-bind="vm.form.user.displayName"></span>
+      <span ng-if="!vm.form.user">Deleted User</span>
+    </em>
+  </small>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Personal Details</h3>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Name</em>
+      <p class="lead" ng-bind="vm.form.name"></p>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Age</em>
+      <p class="lead" ng-bind="vm.form.age"></p>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Email</em>
+      <p class="lead" ng-bind="vm.form.email"></p>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Mobile</em>
+      <p class="lead" ng-bind="vm.form.mobile"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Qualifications</h3>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Education</em>
+      <p class="lead" ng-bind="vm.form.education"></p>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Awards</em>
+      <p class="lead" ng-bind="vm.form.awards"></p>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Patents</em>
+      <p class="lead" ng-bind="vm.form.patents"></p>
+    </div>
+    <div class="col-sm-6">
+      <em class="text-muted">Certifications</em>
+      <p class="lead" ng-bind="vm.form.certifications"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Experience</h3>
+    </div>
+    <div class="col-sm-12">
+      <em class="text-muted">Experience</em>
+      <p class="lead" ng-bind="vm.form.experience"></p>
+    </div>
+  </div>
+</section>
