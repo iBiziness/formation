@@ -5,19 +5,18 @@
   <div class="list-group">
     <a ng-repeat="form in vm.forms" ui-sref="forms.view({ formId: form._id })" class="list-group-item">
       <small class="list-group-item-text pull-right">
-        Submitted on
+        Created on
         <span ng-bind="form.created | date:'mediumDate'"></span>
         by
         <span ng-if="form.user" ng-bind="form.user.displayName"></span>
         <span ng-if="!form.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="docusketchappment.type"></h4>
       <p class="list-group-item-text">
         <span ng-bind="form.name"></span>
         <span class="list-group-item-text" ng-bind="form.email"></span>
       </p>
       <p class="list-group-item-text">
-        <span ng-bind="form.mobile"></span>
+        <span ng-bind="form.fields.length"></span> fields
       </p>
     </a>
   </div>

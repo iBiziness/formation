@@ -12,7 +12,7 @@
       title: 'Forms',
       state: 'forms',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
@@ -25,7 +25,7 @@
     menuService.addSubMenuItem('topbar', 'forms', {
       title: 'Create Form',
       state: 'forms.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());

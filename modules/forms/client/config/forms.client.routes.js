@@ -32,8 +32,8 @@
           formResolve: newForm
         },
         data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Submit a employement application'
+          roles: ['admin'],
+          pageTitle: 'Start a new form'
         }
       })
       .state('forms.edit', {

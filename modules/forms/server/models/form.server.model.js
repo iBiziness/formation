@@ -14,77 +14,25 @@ var FormSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  type: {
-    type: String,
-    trim: true,
-    required: 'Application type is required'
-  },
-
-  company_name: {
-    type: String,
-    default: '',
-    trim: true
-  },
-  company_registration: {
-    type: String,
-    default: '',
-    trim: true
-  },
-
   name: {
     type: String,
     default: '',
     trim: true,
-    required: 'Name cannot be blank'
+    required: 'Name is required'
   },
-  age: {
-    type: Number,
-    default: '',
-    trim: true,
-    required: 'Age cannot be blank'
-  },
-  email: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Email cannot be blank'
-  },
-  mobile: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Mobile number cannot be blank'
-  },
-
-  education: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Education cannot be blank'
-  },
-  awards: {
+  description: {
     type: String,
     default: '',
     trim: true
   },
-  patents: {
-    type: String,
-    default: '',
-    trim: true
+  fields: {
+    type: Array,
+    default: []
   },
-  certifications: {
+  status: {
     type: String,
-    default: '',
-    trim: true
+    default: ''
   },
-
-  experience: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Experience cannot be blank'
-  },
-
   user: {
     type: Schema.ObjectId,
     ref: 'User'
@@ -92,3 +40,16 @@ var FormSchema = new Schema({
 });
 
 mongoose.model('Form', FormSchema);
+
+// /* Test Schema */
+// var DynamicFormSchema = new Schema({ any: Schema.Types.Mixed });
+// mongoose.model('DynamicForm', DynamicFormSchema);
+//
+// var dynaform = new DynamicForm();
+//
+// dynaform.any = { x: [3, 4, { y: "changed" }] };
+// dynaform.markModified('any');
+// dynaform.save(); // anything will now get saved
+//
+// console.log('hello');
+//

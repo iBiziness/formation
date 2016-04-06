@@ -46,8 +46,9 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var form = req.form;
 
-  form.title = req.body.title;
-  form.content = req.body.content;
+  form.name = req.body.name;
+  form.description = req.body.description;
+  form.fields = req.body.fields;
 
   form.save(function (err) {
     if (err) {
@@ -81,6 +82,7 @@ exports.delete = function (req, res) {
  * List of Forms
  */
 exports.list = function (req, res) {
+
   Form.find().sort('-created').populate('user', 'displayName').exec(function (err, forms) {
     if (err) {
       return res.status(400).send({
