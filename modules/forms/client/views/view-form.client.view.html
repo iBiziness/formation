@@ -3,8 +3,8 @@
     <h1 ng-bind="vm.formDoc.name"></h1>
   </div>
   <div class="pull-right" ng-show="vm.formDoc.isCurrentUserOwner">
-    <a class="btn btn-primary" ui-sref="forms.edit({ formId: vm.formDoc._id })" ng-if="vm.formDoc.status===undefined || vm.formDoc.status===''">Edit</a>
-    <a class="btn btn-success" ng-click="vm.publish()" ng-if="vm.formDoc.status===undefined || vm.formDoc.status===''">Publish</a>
+    <a class="btn btn-primary" ui-sref="forms.edit({ formId: vm.formDoc._id })" ng-if="vm.formDoc.status===undefined || vm.formDoc.status==='draft'">Edit</a>
+    <a class="btn btn-success" ng-click="vm.publish()" ng-if="vm.formDoc.status===undefined || vm.formDoc.status==='draft'">Publish</a>
     <a class="btn btn-danger" ng-click="vm.remove()">Delete</a>
   </div>
   <small>
