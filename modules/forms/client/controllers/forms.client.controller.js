@@ -75,7 +75,6 @@
       if (vm.formDoc._id) {
         vm.formDoc.$update(successCallback, errorCallback);
       } else {
-        
         vm.formDoc.status = 'draft';
         vm.formDoc.$save(successCallback, errorCallback);
       }
