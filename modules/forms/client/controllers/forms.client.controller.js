@@ -15,7 +15,7 @@
     vm.error = null;
     vm.form = {};
 
-    vm.formField = formFieldDefaultValues;
+    vm.formField = angular.copy(formFieldDefaultValues);
     vm.editField = editField;
     vm.removeField = removeField;
     vm.saveField = saveField;
@@ -42,6 +42,7 @@
     function saveField(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.fieldForm');
+        // vm.fieldForm.$setSubmitted();
         return false;
       }
 
@@ -53,30 +54,31 @@
       if (index < 0) {
         vm.formDoc.fields.push(field);
       }
-      vm.formField = formFieldDefaultValues;
+      vm.formField = angular.copy(formFieldDefaultValues);
+      $scope.$broadcast('show-errors-reset', 'vm.fieldForm');
+      // vm.fieldForm.$setUntouched();
     }
 
     // Cancel editing a field
     function cancelField() {
-      vm.formField = formFieldDefaultValues;
+      console.log('setPristine');
+      // vm.fieldForm.$setPristine();
+      vm.formField = angular.copy(formFieldDefaultValues);
+      // vm.formField.$submitted = false;
+      $scope.$broadcast('show-errors-reset', 'vm.fieldForm');
     }
 
     // Save Form
     function save(isValid) {
-      // console.log('000');
-      // console.log(vm.form.formForm);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.formForm');
         return false;
       }
-      // console.log('000');
 
       // TODO: move create/update logic to service
       if (vm.formDoc._id) {
-        console.log('afa');
         vm.formDoc.$update(successCallback, errorCallback);
       } else {
-        console.log('xxx');
         vm.formDoc.$save(successCallback, errorCallback);
       }
 
