@@ -22,7 +22,7 @@
     vm.cancelField = cancelField;
 
     vm.save = save;
-    // vm.publish = publish;
+    vm.publish = publish;
     vm.remove = remove;
 
     // Start editing a field
@@ -56,15 +56,11 @@
       }
       vm.formField = angular.copy(formFieldDefaultValues);
       $scope.$broadcast('show-errors-reset', 'vm.fieldForm');
-      // vm.fieldForm.$setUntouched();
     }
 
     // Cancel editing a field
     function cancelField() {
-      console.log('setPristine');
-      // vm.fieldForm.$setPristine();
       vm.formField = angular.copy(formFieldDefaultValues);
-      // vm.formField.$submitted = false;
       $scope.$broadcast('show-errors-reset', 'vm.fieldForm');
     }
 
@@ -79,6 +75,8 @@
       if (vm.formDoc._id) {
         vm.formDoc.$update(successCallback, errorCallback);
       } else {
+        
+        vm.formDoc.status = 'draft';
         vm.formDoc.$save(successCallback, errorCallback);
       }
 
@@ -90,6 +88,14 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
+      }
+    }
+
+    // Remove existing Form
+    function publish() {
+      if ($window.confirm('Are you sure you want to publish?')) {
+        vm.formDoc.status = 'published';
+        vm.formDoc.$update($state.go('forms.list'));
       }
     }
 

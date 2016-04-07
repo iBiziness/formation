@@ -49,6 +49,7 @@ exports.update = function (req, res) {
   form.name = req.body.name;
   form.description = req.body.description;
   form.fields = req.body.fields;
+  form.status = req.body.status;
 
   form.save(function (err) {
     if (err) {

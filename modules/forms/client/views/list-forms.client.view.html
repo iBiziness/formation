@@ -13,7 +13,7 @@
       </small>
       <p class="list-group-item-text">
         <span ng-bind="form.name"></span>
-        <span class="list-group-item-text" ng-bind="form.email"></span>
+        <span ng-bind="form.status" class="label" ng-class="form.status=='published' ? 'label-primary' : 'label-warning'"></span>
       </p>
       <p class="list-group-item-text">
         <span ng-bind="form.fields.length"></span> fields
