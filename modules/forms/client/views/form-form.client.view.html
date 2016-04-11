@@ -28,7 +28,7 @@
             <tr>
               <th>Name</th>
               <th>Type</th>
-              <th>Columns</th>
+              <!-- <th>Columns</th> -->
               <th>Placeholder</th>
               <th></th>
             </tr>
@@ -37,7 +37,7 @@
             <tr ng-repeat="field in vm.formDoc.fields">
               <td>{{field.name}}</td>
               <td>{{field.type}}</td>
-              <td>{{field.cols}}</td>
+              <!-- <td>{{field.cols}}</td> -->
               <td>{{field.placeholder}}</td>
               <td class="text-right">
                 <a class="btn btn-default" ng-click="vm.editField(field)">
@@ -72,7 +72,7 @@
               <label class="control-label" for="fieldName">Name</label>
               <input name="fieldName" type="text" ng-model="vm.formField.name" id="fieldName" class="form-control" placeholder="Field Name" required>
             </div>
-            <div class="form-group col-sm-3" >
+            <div class="form-group col-sm-6" >
               <label class="control-label" for="fieldType">Type</label>
               <select name="fieldType" ng-model="vm.formField.type" ng-init="vm.formField.type = vm.formField.type || 'text'" id="fieldType" class="form-control">
                 <option value="Text">Text</option>
@@ -80,7 +80,7 @@
                 <option value="File">File</option>
               </select>
             </div>
-            <div class="form-group col-sm-3" >
+            <!-- <div class="form-group col-sm-3" >
               <label class="control-label" for="fieldCols">Columns (/12)</label>
               <select name="fieldCols" ng-model="vm.formField.cols" ng-init="vm.formField.cols = vm.formField.cols || '12'" id="fieldCols" class="form-control">
                 <option value="1">1 column</option>
@@ -96,7 +96,7 @@
                 <option value="11">11 columns</option>
                 <option value="12">12 columns</option>
               </select>
-            </div>
+            </div> -->
           </div>
           <div class="row">
             <div class="form-group col-sm-6" show-errors>
