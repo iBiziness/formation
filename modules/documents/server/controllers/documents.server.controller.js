@@ -81,7 +81,12 @@ exports.delete = function (req, res) {
  * List of Documents
  */
 exports.list = function (req, res) {
-  Document.find().sort('-created').populate('user', 'displayName').exec(function (err, documents) {
+
+  var where = {};
+  // check if admin
+  if (req.user.roles.indexOf("admin") < 0)
+    where = { user: req.user };
+  Document.find(where).sort('-created').populate('user', 'displayName').populate('form', 'name').exec(function (err, documents) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +108,7 @@ exports.documentByID = function (req, res, next, id) {
     });
   }
 
-  Document.findById(id).populate('user', 'displayName').exec(function (err, document) {
+  Document.findById(id).populate('user', 'displayName').populate('form', 'name fields').exec(function (err, document) {
     if (err) {
       return next(err);
     } else if (!document) {

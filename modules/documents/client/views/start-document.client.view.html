@@ -1,0 +1,17 @@
+<section>
+  <div class="page-header">
+    <h1>Choose one of the following forms</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="form in vm.forms | filter: { status: 'published' }" ui-sref="documents.create({ formId: form._id })" class="list-group-item">
+      <small class="list-group-item-text pull-right">
+        <span ng-bind="form.fields.length"></span> fields
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="form.name"></h4>
+      <em ng-bind="form.description"></em>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.forms.$resolved && !vm.forms.length">
+    No forms yet, please check back later
+  </div>
+</section>

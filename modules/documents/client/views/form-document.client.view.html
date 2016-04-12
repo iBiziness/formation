@@ -1,92 +1,26 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.document._id ? 'Edit Application Form' : 'New Application Form'}}</h1>
+    <h2>{{ vm.formDocument.name }}</h2>
+    <span>Submit your application</span>
   </div>
-  <div class="col-md-12x">
+  <div>
     <form name="vm.form.documentForm" class="form-horizontadl" ng-submit="vm.save(vm.form.documentForm.$valid)" novalidate>
       <fieldset>
-        <div class="row">
-          <div class="col-sm-12">
-            <h3>Personal Information</h3>
-          </div>
+        <div class="row" ng-repeat="field in vm.formDocument.fields">
+          <div class="form-group col-sm-12" ng-attr-show-errors = "{{field.required ? true : false}}">
+            <label class="control-label" for="{{field.name}}">{{field.name}}</label>
 
-          <div class="form-group col-sm-6" show-errors>
-            <label class="control-label" for="name">Name</label>
-            <input name="name" type="text" ng-model="vm.document.name" id="name" class="form-control" placeholder="Name" required>
-            <div ng-messages="vm.form.documentForm.name.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Name is required.</p>
-            </div>
-          </div>
+            <!-- Text field -->
+            <input ng-show="field.type == 'Text'" name="{{field.name}}" type="text" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control" placeholder="{{field.placeholder}}" ng-required="{{field.required ? true : false}}">
 
-          <div class="col-sm-6 form-group" show-errors>
-            <label class="control-label" for="age">Age</label>
-            <input name="age" type="text" ng-model="vm.document.age" id="age" class="form-control" placeholder="Age" required>
-            <div ng-messages="vm.form.documentForm.age.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Age is required.</p>
-            </div>
-          </div>
+            <!-- Textarea field -->
+            <textarea ng-show="field.type == 'TextArea'" name="{{field.name}}" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control" rows="5" placeholder="{{field.placeholder}}" ng-required="{{field.required ? true : false}}"></textarea>
 
-          <div class="col-sm-6 form-group" show-errors>
-            <label class="control-label" for="email">Email</label>
-            <input name="email" type="text" ng-model="vm.document.email" id="email" class="form-control" placeholder="Email" required>
-            <div ng-messages="vm.form.documentForm.email.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Email is required.</p>
-            </div>
-          </div>
-
-          <div class="col-sm-6 form-group" show-errors>
-            <label class="control-label" for="title">Mobile</label>
-            <input name="mobile" type="text" ng-model="vm.document.mobile" id="mobile" class="form-control" placeholder="Mobile" required>
-            <div ng-messages="vm.form.documentForm.mobile.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Mobile is required.</p>
+            <div ng-messages="vm.form.documentForm[field.name].$error" role="alert">
+              <p class="help-block error-text" ng-message="required">{{field.required}}</p>
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <h3>Qualification</h3>
-          </div>
-
-          <div class="form-group col-sm-6" show-errors>
-            <label class="control-label" for="name">Education</label>
-            <textarea name="education" data-ng-model="vm.document.education" id="education" class="form-control" rows="5" placeholder="Education"></textarea>
-            <div ng-messages="vm.form.documentForm.education.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Experience is required.</p>
-            </div>
-          </div>
-
-          <div class="form-group col-sm-6" show-errors>
-            <label class="control-label" for="name">Awards</label>
-            <textarea name="awards" data-ng-model="vm.document.awards" id="awards" class="form-control" rows="5" placeholder="Awards"></textarea>
-          </div>
-
-          <div class="form-group col-sm-6" show-errors>
-            <label class="control-label" for="name">Patents</label>
-            <textarea name="patents" data-ng-model="vm.document.patents" id="patents" class="form-control" rows="5" placeholder="Patents"></textarea>
-          </div>
-
-          <div class="form-group col-sm-6" show-errors>
-            <label class="control-label" for="name">Certifications</label>
-            <textarea name="certifications" data-ng-model="vm.document.certifications" id="certifications" class="form-control" rows="5" placeholder="Certifications"></textarea>
-          </div>
-
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <h3>Experience</h3>
-          </div>
-
-          <div class="form-group col-sm-12" show-errors>
-            <label class="control-label" for="name">Write your previous work experience</label>
-            <textarea name="experience" data-ng-model="vm.document.experience" id="experience" class="form-control" rows="10" noresize placeholder="Experience"></textarea>
-            <div ng-messages="vm.form.documentForm.experience.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Experience is required.</p>
-            </div>
-          </div>
-        </div>
-
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.document._id ? 'Update' : 'Create'}}</button>
         </div>

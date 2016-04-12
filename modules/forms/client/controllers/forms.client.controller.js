@@ -42,7 +42,6 @@
     function saveField(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.fieldForm');
-        // vm.fieldForm.$setSubmitted();
         return false;
       }
 

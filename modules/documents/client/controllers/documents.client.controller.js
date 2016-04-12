@@ -5,9 +5,9 @@
     .module('documents')
     .controller('DocumentsController', DocumentsController);
 
-  DocumentsController.$inject = ['$scope', '$state', 'documentResolve', '$window', 'Authentication'];
+  DocumentsController.$inject = ['$scope', '$state', 'documentResolve', 'formResolve', '$window', 'Authentication'];
 
-  function DocumentsController($scope, $state, document, $window, Authentication) {
+  function DocumentsController($scope, $state, document, form, $window, Authentication) {
     var vm = this;
 
     vm.document = document;
@@ -16,6 +16,8 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    vm.formDocument = form;
 
     // Remove existing Document
     function remove() {
@@ -37,7 +39,7 @@
       } else {
 
         // by default document type is employment_form
-        vm.document.type = 'employment_form';
+        vm.document.form = vm.formDocument._id;
         vm.document.$save(successCallback, errorCallback);
       }
 

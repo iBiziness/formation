@@ -11,7 +11,7 @@
         <span ng-if="document.user" ng-bind="document.user.displayName"></span>
         <span ng-if="!document.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="docusketchappment.type"></h4>
+      <h4 class="list-group-item-heading" ng-bind="document.form.name"></h4>
       <p class="list-group-item-text">
         <span ng-bind="document.name"></span>
         <span class="list-group-item-text" ng-bind="document.email"></span>

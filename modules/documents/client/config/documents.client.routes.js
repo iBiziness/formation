@@ -23,17 +23,31 @@
           pageTitle: 'Documents List'
         }
       })
-      .state('documents.create', {
-        url: '/create',
-        templateUrl: 'modules/documents/client/views/form-document.client.view.html',
-        controller: 'DocumentsController',
+      .state('documents.start', {
+        url: '/start',
+        templateUrl: 'modules/documents/client/views/start-document.client.view.html',
+        controller: 'DocumentFormsListController',
         controllerAs: 'vm',
         resolve: {
           documentResolve: newDocument
         },
         data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Submit a employement application'
+          roles: ['user'],
+          pageTitle: 'Choose a form for your application'
+        }
+      })
+      .state('documents.create', {
+        url: '/:formId/start',
+        templateUrl: 'modules/documents/client/views/form-document.client.view.html',
+        controller: 'DocumentsController',
+        controllerAs: 'vm',
+        resolve: {
+          documentResolve: newDocument,
+          formResolve: getForm
+        },
+        data: {
+          roles: ['user'],
+          pageTitle: 'Start a document'
         }
       })
       .state('documents.edit', {
@@ -42,7 +56,8 @@
         controller: 'DocumentsController',
         controllerAs: 'vm',
         resolve: {
-          documentResolve: getDocument
+          documentResolve: getDocument,
+          formResolve: newForm
         },
         data: {
           roles: ['user', 'admin'],
@@ -55,16 +70,17 @@
         controller: 'DocumentsController',
         controllerAs: 'vm',
         resolve: {
-          documentResolve: getDocument
+          documentResolve: getDocument,
+          formResolve: newForm
         },
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Document {{ documentResolve.title }}'
         }
       });
   }
 
   getDocument.$inject = ['$stateParams', 'DocumentsService'];
-
   function getDocument($stateParams, DocumentsService) {
     return DocumentsService.get({
       documentId: $stateParams.documentId
@@ -72,8 +88,20 @@
   }
 
   newDocument.$inject = ['DocumentsService'];
-
   function newDocument(DocumentsService) {
     return new DocumentsService();
   }
+
+  getForm.$inject = ['$stateParams', 'FormsService'];
+  function getForm($stateParams, FormsService) {
+    return FormsService.get({
+      formId: $stateParams.formId
+    }).$promise;
+  }
+
+  newForm.$inject = ['FormsService'];
+  function newForm(FormsService) {
+    return new FormsService();
+  }
+
 }());
