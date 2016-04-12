@@ -12,7 +12,8 @@
       title: 'Forms',
       state: 'forms',
       type: 'dropdown',
-      roles: ['admin']
+      roles: ['admin'],
+      position: 1
     });
 
     // Add the dropdown list item
