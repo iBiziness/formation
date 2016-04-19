@@ -27,6 +27,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/documents',
       permissions: ['get', 'post']
     }, {
+      resources: '/api/documents/upload',
+      permissions: ['post']
+    }, {
       resources: '/api/documents/:documentId',
       permissions: ['get']
     }]

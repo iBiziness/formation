@@ -4,7 +4,7 @@
     <span>Submit your application</span>
   </div>
   <div>
-    <form name="vm.form.documentForm" class="form-horizontadl" ng-submit="vm.save(vm.form.documentForm.$valid)" ng-init="prepareFieldOptions()" novalidate>
+    <form name="vm.form.documentForm" class="form-horizontadl" ng-submit="vm.save(vm.form.documentForm.$valid)" ng-init="vm.prepareFieldOptions()" novalidate>
       <fieldset>
         <div class="row" ng-repeat="field in vm.formDocument.fields">
           <div class="form-group col-sm-12" ng-attr-show-errors = "{{field.required ? true : false}}">
@@ -49,14 +49,39 @@
                 </div>
               </div>
 
+              <!-- File field -->
+              <div ng-if="field.type == 'File'">
+                <div class="row">
+                <div class="form-group col-sm-4" ng-hide="vm.uploader.queue.length " >
+                  <span class="btn btn-default btn-file" >
+                      Select File <input type="file" nv-file-select uploader="vm.uploader">
+                  </span>
+                </div>
+                <div class="form-group col-sm-4" ng-show="vm.uploader.queue.length || vm.success">
+                  <span ng-bind="vm.fileName"></span>
+                </div>
+                <div class="text-right form-group col-sm-4" ng-show="vm.uploader.queue.length">
+                  <button type="button" class="btn btn-primary" ng-click="vm.uploadFile();">Upload</button>
+                  <button type="button" class="btn btn-default" ng-click="vm.cancelUpload();">Cancel</button>
+                </div>
+                <div class="form-group col-sm-4">
+                  <span ng-show="vm.success" class="text-success">
+                    <strong>File uploaded Successfully</strong>
+                  </span>
+                  <span ng-show="vm.error" class="text-danger">
+                    <strong ng-bind="vm.error"></strong>
+                  </span>
+                </div>
+                </div>
+              </div>
+
               <div ng-messages="vm.form.documentForm.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">{{field.required}}</p>
               </div>
-
             </ng-form>
-
           </div>
         </div>
+
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.document._id ? 'Update' : 'Create'}}</button>
         </div>
@@ -65,5 +90,9 @@
         </div>
       </fieldset>
     </form>
+
+
+
+
   </div>
 </section>

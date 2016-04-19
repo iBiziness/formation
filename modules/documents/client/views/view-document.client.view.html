@@ -24,5 +24,10 @@
       <em class="text-muted">{{ field.name }}</em>
       <p class="lead" ng-bind="vm.document.values[0][field.name]"></p>
     </div>
+    <div class="col-sm-12">
+      <em class="text-muted">File</em>
+      <p class="lead"><a href="{{vm.document.values[0]['file']}}" target="_blank">Download</a></p>
+    </div>
+
   </div>
 </section>

@@ -5,9 +5,9 @@
     .module('documents')
     .controller('DocumentsController', DocumentsController);
 
-  DocumentsController.$inject = ['$scope', '$state', 'documentResolve', 'formResolve', '$window', 'Authentication'];
+  DocumentsController.$inject = ['$scope', '$state', 'documentResolve', 'formResolve', '$window', 'Authentication', 'FileUploader'];
 
-  function DocumentsController($scope, $state, document, form, $window, Authentication) {
+  function DocumentsController($scope, $state, document, form, $window, Authentication, FileUploader) {
     var vm = this;
 
     vm.document = document;
@@ -18,11 +18,9 @@
     vm.save = save;
 
     vm.formDocument = form;
-    // prepareFieldOptions();
+    vm.prepareFieldOptions = prepareFieldOptions;
 
-    console.log(vm.formDocument);
     function prepareFieldOptions() {
-
       vm.formDocument.fields.forEach(function(field) {
         if (field.fieldOptions)
           field.fieldOptionsArray = field.fieldOptions.split("\n");
@@ -43,6 +41,9 @@
         return false;
       }
 
+      console.log(vm.document.values);
+      vm.document.values['file'] = vm.fileUrl;
+
       // TODO: move create/update logic to service
       if (vm.document._id) {
         vm.document.$update(successCallback, errorCallback);
@@ -62,6 +63,63 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    vm.fileUrl = '';
+    vm.fileName = '';
+    vm.uploadFile = uploadFile;
+
+    vm.cancelUpload = cancelUpload;
+    // Create file uploader instance
+    vm.uploader = new FileUploader({
+      url: 'api/documents/upload',
+      alias: 'documentFile',
+      onAfterAddingFile: onAfterAddingFile,
+      onSuccessItem: onSuccessItem,
+      onErrorItem: onErrorItem
+    });
+
+    // Called after the user selected a new picture file
+    function onAfterAddingFile(fileItem) {
+      vm.fileName = fileItem._file.name;
+      vm.success = null;
+    }
+
+    // Called after the user has successfully uploaded a new picture
+    function onSuccessItem(fileItem, response, status, headers) {
+      // Show success message
+      vm.success = true;
+
+      vm.fileUrl = response.fileUrl;
+
+      // Clear upload buttons
+      cancelUpload();
+    }
+
+    // Called after the user has failuploadFileed to uploaded a new picture
+    function onErrorItem(fileItem, response, status, headers) {
+      // Clear upload buttons
+      cancelUpload();
+
+      // Show error message
+      vm.error = response.message;
+    }
+
+    function uploadFile() {
+      console.log('uploadFile');
+      // Clear messages
+      vm.success = vm.error = null;
+
+      // Start upload
+      vm.uploader.uploadAll();
+    }
+
+    // Cancel the upload process
+    function cancelUpload() {
+      // debugger;
+      vm.uploader.clearQueue();
+      vm.fileName = '';
+      return false;
     }
   }
 }());

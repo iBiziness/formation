@@ -12,11 +12,14 @@ module.exports = function (app) {
     .get(documents.list)
     .post(documents.create);
 
+  app.route('/api/documents/upload').post(documents.uploadFile);
+
   // Single document routes
   app.route('/api/documents/:documentId').all(documentsPolicy.isAllowed)
     .get(documents.read)
     .put(documents.update)
     .delete(documents.delete);
+
 
   // Finish by binding the document middleware
   app.param('documentId', documents.documentByID);

@@ -6,6 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Document = mongoose.model('Document'),
+  multer = require('multer'),
+  config = require(path.resolve('./config/config')),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -119,4 +121,32 @@ exports.documentByID = function (req, res, next, id) {
     req.document = document;
     next();
   });
+};
+
+/**
+ * Update file
+ */
+exports.uploadFile = function (req, res) {
+  console.log('uploadFile on server !!!');
+  var user = req.user;
+  var upload = multer(config.uploads.profileUpload).single('documentFile');
+
+  if (user) {
+    upload(req, res, function (uploadError) {
+      if (uploadError) {
+        return res.status(400).send({
+          message: 'Error occurred while uploading.'
+        });
+      } else {
+        var fileUrl = config.uploads.profileUpload.dest + req.file.filename;
+        res.json({
+          fileUrl: fileUrl
+        });
+      }
+    });
+  } else {
+    res.status(400).send({
+      message: 'User is not signed in'
+    });
+  }
 };
