@@ -18,6 +18,16 @@
     vm.save = save;
 
     vm.formDocument = form;
+    // prepareFieldOptions();
+
+    console.log(vm.formDocument);
+    function prepareFieldOptions() {
+
+      vm.formDocument.fields.forEach(function(field) {
+        if (field.fieldOptions)
+          field.fieldOptionsArray = field.fieldOptions.split("\n");
+      });
+    }
 
     // Remove existing Document
     function remove() {

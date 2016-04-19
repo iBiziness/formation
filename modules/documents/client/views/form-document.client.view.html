@@ -4,21 +4,57 @@
     <span>Submit your application</span>
   </div>
   <div>
-    <form name="vm.form.documentForm" class="form-horizontadl" ng-submit="vm.save(vm.form.documentForm.$valid)" novalidate>
+    <form name="vm.form.documentForm" class="form-horizontadl" ng-submit="vm.save(vm.form.documentForm.$valid)" ng-init="prepareFieldOptions()" novalidate>
       <fieldset>
         <div class="row" ng-repeat="field in vm.formDocument.fields">
           <div class="form-group col-sm-12" ng-attr-show-errors = "{{field.required ? true : false}}">
-            <label class="control-label" for="{{field.name}}">{{field.name}}</label>
 
-            <!-- Text field -->
-            <input ng-show="field.type == 'Text'" name="{{field.name}}" type="text" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control" placeholder="{{field.placeholder}}" ng-required="{{field.required ? true : false}}">
+            <ng-form name="innerForm{{field.name}}">
+              <label class="control-label" for="{{field.name}}">{{field.name}}</label>
 
-            <!-- Textarea field -->
-            <textarea ng-show="field.type == 'TextArea'" name="{{field.name}}" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control" rows="5" placeholder="{{field.placeholder}}" ng-required="{{field.required ? true : false}}"></textarea>
+              <!-- Text field -->
+              <input ng-if="field.type == 'Text'" name="{{field.name}}" type="text" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control" placeholder="{{field.placeholder}}" ng-required="field.required ? true : false">
 
-            <div ng-messages="vm.form.documentForm[field.name].$error" role="alert">
-              <p class="help-block error-text" ng-message="required">{{field.required}}</p>
-            </div>
+              <!-- Textarea field -->
+              <textarea ng-if="field.type == 'TextArea'" name="{{field.name}}" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control" rows="5" placeholder="{{field.placeholder}}" ng-required="{{ field.required ? true : false }}"></textarea>
+
+              <!-- Dropdown field -->
+              <select ng-if="field.type == 'Dropdown'" name="{{field.name}}" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control">
+                <option value="">{{ field.placeholder }}</option>
+                <option ng-repeat="option in field.fieldOptionsArray" value="{{option}}">{{option}}</option>
+              </select>
+
+              <!-- Multiselect field -->
+              <select ng-if="field.type == 'Mutliselect'" name="{{field.name}}" ng-model="vm.document.values[field.name]" id="{{field.name}}" class="form-control" multiple>
+                <option ng-repeat="option in field.fieldOptionsArray" value="{{option}}">{{option}}</option>
+              </select>
+
+              <!-- Checkbox field -->
+              <div ng-if="field.type == 'Checkbox'">
+                <!-- <small class="text-muted">{{field.placeholder}}</small> -->
+                <div class="checkbox">
+                  <label ng-repeat="option in field.fieldOptionsArray">
+                    <input type="checkbox" name="{{field.name}}[]" value="{{option}}"> {{option}} &nbsp;&nbsp;&nbsp;
+                  </label>
+                </div>
+              </div>
+
+              <!-- Radio field -->
+              <div ng-if="field.type == 'Radiobox'">
+                <div class="form-group">
+                    <label ng-repeat="option in field.fieldOptionsArray">
+                        <input type="radio" name="{{field.name}}" value="{{option}}" ng-model="vm.document.values[field.name]" required>
+                        {{option}} &nbsp;&nbsp;
+                    </label>
+                </div>
+              </div>
+
+              <div ng-messages="vm.form.documentForm.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">{{field.required}}</p>
+              </div>
+
+            </ng-form>
+
           </div>
         </div>
         <div class="form-group">

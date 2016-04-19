@@ -1,28 +1,25 @@
 <section>
   <div class="page-header">
     <h1 ng-bind="vm.document.form.name"></h1>
+    <small>
+      <em class="text-muted">
+        Submitted on
+        <span ng-bind="vm.document.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="vm.document.user" ng-bind="vm.document.user.displayName"></span>
+        <span ng-if="!vm.document.user">Deleted User</span>
+      </em>
+    </small>
   </div>
   <div class="pull-right" ng-show="vm.document.isCurrentUserOwner">
-    <a class="btn btn-primary" ui-sref="documents.edit({ documentId: vm.document._id })">
+    <!-- <a class="btn btn-primary" ui-sref="documents.edit({ documentId: vm.document._id })">
       <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
+    </a> -->
+    <a class="btn btn-danger" ng-click="vm.remove()">
+      Delete
     </a>
   </div>
-  <small>
-    <em class="text-muted">
-      Submitted on
-      <span ng-bind="vm.document.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.document.user" ng-bind="vm.document.user.displayName"></span>
-      <span ng-if="!vm.document.user">Deleted User</span>
-    </em>
-  </small>
   <div class="row">
-    <div class="col-sm-12">
-      <h3>Qualifications</h3>
-    </div>
     <div class="col-sm-12" ng-repeat="field in vm.document.form.fields">
       <em class="text-muted">{{ field.name }}</em>
       <p class="lead" ng-bind="vm.document.values[0][field.name]"></p>

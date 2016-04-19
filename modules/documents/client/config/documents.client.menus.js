@@ -12,7 +12,7 @@
       title: 'Documents',
       state: 'documents',
       type: 'dropdown',
-      roles: ['*'],
+      roles: ['user', 'admin'],
       position: 2
     });
 
